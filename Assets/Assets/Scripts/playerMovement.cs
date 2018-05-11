@@ -20,6 +20,8 @@ public class playerMovement : MonoBehaviour {
     public float upwardJumpMultiplier;
     public bool isGrounded;
 
+    //direction variables
+    public bool isFacingRight;
 
 	// Use this for initialization
 	void Start () {
@@ -42,6 +44,9 @@ public class playerMovement : MonoBehaviour {
         jumpMultiplier = 2.75f;
         lowJumpMultiplier = 2;
         upwardJumpMultiplier = 1.5f;
+
+        //direction variables
+        isFacingRight = true;
 	}
 
     //The difference between Update and FixedUpdate
@@ -59,6 +64,14 @@ public class playerMovement : MonoBehaviour {
         //goes to.
         xMove = Input.GetAxis("Horizontal");
         rb2D.velocity = new Vector2(xMove*movementSpeed, rb2D.velocity.y);
+
+        if(xMove > 0)
+        {
+            isFacingRight = true;
+        }else if(xMove < 0)
+        {
+            isFacingRight = false;
+        }
 
         Debug.Log(rb2D.velocity.y);
         //https://www.youtube.com/watch?v=7KiK0Aqtmzc

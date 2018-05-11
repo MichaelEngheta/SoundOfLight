@@ -13,15 +13,15 @@ public class playerSing : MonoBehaviour {
     public float lightRangeDecrementor;
 
 
-
 	// Use this for initialization
 	void Start () {
-        orb = GetComponentInChildren<Light>();
+        orb = GameObject.FindGameObjectWithTag("Orb").GetComponent<Light>();
         maxLightRadius = 5;
         minLightRadius = 3;
         lightRangeDecrementor = .10f;
         lightRangeIncrementor = .10f;
         rb2d = GetComponent<Rigidbody2D>();
+        
 	}
 	
 	// Update is called once per frame
