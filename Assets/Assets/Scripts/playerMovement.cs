@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour {
 
+    public Animator animator;
     private Rigidbody2D rb2D;
+    public SpriteRenderer sprite;
 
-
+    //horizontal movement
     private float xMove;
     public float movementSpeed;
 
-    //vertical movement(jump)
+    //vertical movement
     public float jumpHeight;
     public float jumpMultiplier;
     public float lowJumpMultiplier;
@@ -23,7 +25,18 @@ public class playerMovement : MonoBehaviour {
 	void Start () {
         //this gives us access to the Rigidbody2D
         //of the gameObject this script is attached to
+        //*Rigidbody is what allows us to apply physics
+        //the object
         rb2D = GetComponent<Rigidbody2D>();
+
+        //this gives us access to the animator,
+        //which allows us to control what animation
+        //plays when
+        animator = GetComponent<Animator>();
+
+        sprite = GetComponent<SpriteRenderer>();
+
+        //setting movement variables
         movementSpeed = 8;
         jumpHeight = 7;
         jumpMultiplier = 2.75f;
@@ -32,8 +45,8 @@ public class playerMovement : MonoBehaviour {
 	}
 
     //The difference between Update and FixedUpdate
-    //is that FixedUpdate is not dependent on the 
-    //hardware. Meanwhile, Update is. Essentially,
+    //is that, unlike Update, FixedUpdate is not dependent on the 
+    //hardware. Essentially,
     //the faster the computer, the more Update calls
     //are called. 
     private void FixedUpdate()
@@ -81,6 +94,24 @@ public class playerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+        float horizontalVelocity = rb2D.velocity.x;
+
+        if (horizontalVelocity == 0)
+        {
+            animator.SetBool("Moving", false);
+        }else if(horizontalVelocity > 0)
+        {
+            animator.SetBool("Moving", true);
+        }else if(horizontalVelocity < 0)
+        {
+            animator.SetBool("Moving", true);
+            Flip();
+
+        }
 	}
+
+    void Flip()
+    {
+        sprite.flipX = true;
+    }
 }
