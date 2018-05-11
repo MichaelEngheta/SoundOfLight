@@ -94,24 +94,23 @@ public class playerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        float horizontalVelocity = rb2D.velocity.x;
+        float horizontalVelocity = Input.GetAxis("Horizontal");
 
-        if (horizontalVelocity == 0)
+        if(horizontalVelocity != 0)
+        {
+            animator.SetBool("Moving", true);
+        }
+        else
         {
             animator.SetBool("Moving", false);
-        }else if(horizontalVelocity > 0)
-        {
-            animator.SetBool("Moving", true);
-        }else if(horizontalVelocity < 0)
-        {
-            animator.SetBool("Moving", true);
-            Flip();
-
         }
+
+        animator.SetFloat("xVel", horizontalVelocity);
+        
 	}
 
     void Flip()
     {
-        sprite.flipX = true;
+        //sprite.flipX = true;
     }
 }
