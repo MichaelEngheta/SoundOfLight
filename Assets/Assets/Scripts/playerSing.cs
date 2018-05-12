@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerSing : MonoBehaviour {
+public class playerSing : playerMovement {
 
     public Light orb;
     public Rigidbody2D rb2d;

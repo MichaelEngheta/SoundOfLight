@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerShoot : MonoBehaviour {
+public class playerShoot : playerMovement {
 
     public GameObject magicOrb;
     public float magicOrbSpeed;
     public bool thrown;
     public GameObject magicOrbPlaceholder;
-    public bool isFacingRight;
+    public bool flying;
 
 	// Use this for initialization
 	void Start () {
@@ -16,13 +16,13 @@ public class playerShoot : MonoBehaviour {
         magicOrbPlaceholder = GameObject.FindGameObjectWithTag("OrbPlaceholder");
         magicOrbSpeed = 0.25f;
         thrown = false;
-        
+        isFacingRight = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        isFacingRight = GetComponent<playerMovement>().isFacingRight;
+        determineDirection();
 
         if (isFacingRight == true)
         {
@@ -35,6 +35,7 @@ public class playerShoot : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftShift) && thrown == true )
         {
             magicOrb.transform.position = magicOrbPlaceholder.transform.position;
+            flying = false;
         }
 	}
 
@@ -44,6 +45,7 @@ public class playerShoot : MonoBehaviour {
         {
             magicOrb.transform.position = new Vector3(magicOrb.transform.position.x + magicOrbSpeed,
                 magicOrb.transform.position.y, magicOrb.transform.position.z);
+            flying = true;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -58,6 +60,7 @@ public class playerShoot : MonoBehaviour {
         {
             magicOrb.transform.position = new Vector3(magicOrb.transform.position.x - magicOrbSpeed,
                 magicOrb.transform.position.y, magicOrb.transform.position.z);
+            flying = true;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))

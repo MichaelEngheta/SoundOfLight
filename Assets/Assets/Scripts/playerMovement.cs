@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour {
 
-    public Animator animator;
+    private Animator animator;
     private Rigidbody2D rb2D;
-    public SpriteRenderer sprite;
 
     //horizontal movement
-    private float xMove;
-    public float movementSpeed;
+    [SerializeField]
+    private float xMove, movementSpeed;
 
     //vertical movement
-    public float jumpHeight;
-    public float jumpMultiplier;
-    public float lowJumpMultiplier;
-    public bool jumping;
-    public float upwardJumpMultiplier;
-    public bool isGrounded;
+    [SerializeField]
+    private float jumpHeight, jumpMultiplier, lowJumpMultiplier, upwardJumpMultiplier;
+    [SerializeField]
+    private bool jumping, isGrounded;
 
     //direction variables
     public bool isFacingRight;
@@ -36,7 +33,6 @@ public class playerMovement : MonoBehaviour {
         //plays when
         animator = GetComponent<Animator>();
 
-        sprite = GetComponent<SpriteRenderer>();
 
         //setting movement variables
         movementSpeed = 8;
@@ -65,13 +61,7 @@ public class playerMovement : MonoBehaviour {
         xMove = Input.GetAxis("Horizontal");
         rb2D.velocity = new Vector2(xMove*movementSpeed, rb2D.velocity.y);
 
-        if(xMove > 0)
-        {
-            isFacingRight = true;
-        }else if(xMove < 0)
-        {
-            isFacingRight = false;
-        }
+        determineDirection();
 
         Debug.Log(rb2D.velocity.y);
         //https://www.youtube.com/watch?v=7KiK0Aqtmzc
@@ -92,6 +82,17 @@ public class playerMovement : MonoBehaviour {
         }
     }
 
+    public void determineDirection()
+    {
+        if (xMove > 0)
+        {
+            isFacingRight = true;
+        }
+        else if (xMove < 0)
+        {
+            isFacingRight = false;
+        }
+    }
 
     //If the collider under the player's feet comes in contact
     //with a platform tagged as ground, isGrounded is set to 
@@ -122,8 +123,8 @@ public class playerMovement : MonoBehaviour {
         
 	}
 
-    void Flip()
-    {
-        //sprite.flipX = true;
+    public void testFunc() {
+
     }
+
 }
